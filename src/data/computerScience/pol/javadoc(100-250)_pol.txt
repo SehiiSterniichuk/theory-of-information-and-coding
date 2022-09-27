@@ -1,0 +1,6 @@
+Generuje strony dokumentacji HTML API z plików źródłowych Java.
+
+Kompendium
+javadoc {pakiety|pliki źródłowe} [parametry] [@argfiles]
+
+pakiety

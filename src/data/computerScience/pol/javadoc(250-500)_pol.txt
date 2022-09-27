@@ -1,0 +1,7 @@
+Generuje strony dokumentacji HTML API z plików źródłowych Java.
+
+Kompendium
+javadoc {pakiety|pliki źródłowe} [parametry] [@argfiles]
+
+pakiety
+Nazwy pakietów, które chcesz udokumentować, są oddzielone spacjami, na przykład java.lang java.lang.reflect java.awt. Jeśli chcesz udokumentować również podpakiety, użyj opcji -subpackages, aby określić pakiety.

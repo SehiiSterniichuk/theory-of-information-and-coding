@@ -1,0 +1,18 @@
+Generuje strony dokumentacji HTML API z plików źródłowych Java.
+
+Kompendium
+javadoc {pakiety|pliki źródłowe} [parametry] [@argfiles]
+
+pakiety
+Nazwy pakietów, które chcesz udokumentować, są oddzielone spacjami, na przykład java.lang java.lang.reflect java.awt. Jeśli chcesz udokumentować również podpakiety, użyj opcji -subpackages, aby określić pakiety.
+
+Domyślnie javadoc przeszukuje bieżący katalog i podkatalogi w poszukiwaniu określonych pakietów. Użyj opcji -sourcepath, aby określić listę katalogów do wyszukiwania pakietów.
+
+pliki źródłowe
+Nazwy plików źródłowych Java, które chcesz udokumentować, są oddzielone spacjami, na przykład Class.java Object.java Button.java. Domyślnie javadoc wyszukuje określone klasy w bieżącym katalogu. Możesz jednak określić pełną ścieżkę do pliku klasy i użyć symboli wieloznacznych, takich jak /home/src/java/awt/Graphics*.java. Możesz także określić ścieżkę względem bieżącego katalogu.
+
+parametry
+Opcje wiersza poleceń oddzielone spacjami. Zobacz opcje.
+
+@argfiles
+Nazwy plików zawierające listę opcji poleceń javadoc, nazwy pakietów i nazwy plików źródłowych w dowolnej kolejności.

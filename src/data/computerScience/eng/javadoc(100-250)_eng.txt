@@ -1,0 +1,7 @@
+Generates HTML pages of API documentation from Java source files.
+
+Synopsis
+javadoc {packages|source-files} [options] [@argfiles]
+
+packages
+

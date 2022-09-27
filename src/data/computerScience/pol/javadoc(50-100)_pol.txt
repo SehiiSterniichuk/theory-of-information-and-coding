@@ -1,0 +1,3 @@
+Generuje strony dokumentacji HTML API z plików źródłowych Java.
+
+Kompendium

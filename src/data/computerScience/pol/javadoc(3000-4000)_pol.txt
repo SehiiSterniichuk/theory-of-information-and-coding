@@ -1,0 +1,33 @@
+Generuje strony dokumentacji HTML API z plików źródłowych Java.
+
+Kompendium
+javadoc {pakiety|pliki źródłowe} [parametry] [@argfiles]
+
+pakiety
+Nazwy pakietów, które chcesz udokumentować, są oddzielone spacjami, na przykład java.lang java.lang.reflect java.awt. Jeśli chcesz udokumentować również podpakiety, użyj opcji -subpackages, aby określić pakiety.
+
+Domyślnie javadoc przeszukuje bieżący katalog i podkatalogi w poszukiwaniu określonych pakietów. Użyj opcji -sourcepath, aby określić listę katalogów do wyszukiwania pakietów.
+
+pliki źródłowe
+Nazwy plików źródłowych Java, które chcesz udokumentować, są oddzielone spacjami, na przykład Class.java Object.java Button.java. Domyślnie javadoc wyszukuje określone klasy w bieżącym katalogu. Możesz jednak określić pełną ścieżkę do pliku klasy i użyć symboli wieloznacznych, takich jak /home/src/java/awt/Graphics*.java. Możesz także określić ścieżkę względem bieżącego katalogu.
+
+parametry
+Opcje wiersza poleceń oddzielone spacjami. Zobacz opcje.
+
+@argfiles
+Nazwy plików zawierające listę opcji poleceń javadoc, nazwy pakietów i nazwy plików źródłowych w dowolnej kolejności.
+
+opis
+Komenda javadoc analizuje deklaracje i komentarze dokumentacji w zestawie plików źródłowych Java i generuje odpowiedni zestaw stron HTML, które opisują (domyślnie) klasy publiczne i chronione, klasy zagnieżdżone (ale nie anonimowe klasy wewnętrzne), interfejsy, konstruktory, metody i pola. Za pomocą komendy javadoc można wygenerować dokumentację interfejsu API lub dokumentację implementacji dla zestawu plików źródłowych.
+
+Możesz uruchomić polecenie javadoc na całych pakietach, pojedynczych plikach źródłowych lub na obu. Podczas dokumentowania całych pakietów możesz użyć opcji -subpackages, aby rekursywnie przeszukiwać katalog i jego podkatalogi, lub przekazać wyraźną listę nazw pakietów. Dokumentując poszczególne pliki źródłowe, przekaż listę nazw plików źródłowych Java. Zobacz proste przykłady.
+
+Konformizm
+Standardowy dokument nie sprawdza spójności treści komentarzy do dokumentacji i nie próbuje poprawiać błędów w komentarzach do dokumentacji. Należy pamiętać o problemach, które mogą wystąpić, gdy polecenie javadoc generuje nieodpowiednie dane wyjściowe lub dane wyjściowe zawierające zawartość wykonywalną, taką jak JavaScript. Standardowy dokument zawiera opcję -Xdoclint, która pomaga wykryć typowe problemy w komentarzach do dokumentacji; jednak zaleca się również zweryfikowanie wygenerowanych danych wyjściowych za pomocą odpowiednich narzędzi zgodności i walidacji.
+
+Aby uzyskać więcej informacji o wymaganiach dotyczących zgodności dokumentów HTML5, zobacz wymagania dotyczące zgodności w specyfikacji HTML5. Aby uzyskać więcej informacji o kwestiach bezpieczeństwa związanych ze stronami internetowymi, zobacz projekt Open Web Application Security Project (OWASP).
+
+Przetwarzanie plików źródłowych
+Komenda javadoc przetwarza pliki kończące się na źródłowym i inne pliki opisane w sekcji „Pliki źródłowe”. Jeśli uruchomisz polecenie javadoc, przekazując poszczególne nazwy plików źródłowych, możesz dokładnie określić, które pliki źródłowe są przetwarzane. Jednak większość programistów woli nie pracować w ten sposób, ponieważ łatwiej jest przekazać nazwy pakietów. Komendę javadoc można uruchomić na trzy sposoby bez jawnego określania nazw plików źródłowych. Możesz przekazać nazwy pakietów, użyć opcji -subpackages lub użyć symboli wieloznacznych z nazwami plików źródłowych. W takich przypadkach polecenie javadoc przetwarza plik źródłowy tylko wtedy, gdy spełnia wszystkie następujące wymagania:
+
+Prefiks nazwy pliku (z usuniętym rozszerzeniem .java) jest prawidłową nazwą klasy.

@@ -1,7 +1,6 @@
 package lab1;
 
 import java.text.DecimalFormat;
-import java.util.Scanner;
 
 public class Main {
     static private final DecimalFormat numView = new DecimalFormat("#.####");
@@ -19,24 +18,10 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("if you want to work with file enter 1, otherwise you will be work with string");
-        System.out.print("Enter: ");
-        String choice = sc.nextLine();
-        String message, string;
-        if (!choice.equals("1")) {
-            System.out.println("Please, enter your string");
-            System.out.print("Enter: ");
-            string = sc.nextLine();
-            message = "String: " + string;
-        } else {
-            System.out.println("Please, enter name of your file");
-            System.out.print("Enter: ");
-            String fileName = sc.nextLine();
-            FileConverter converter = new FileConverter(fileName);
-            string = converter.getFileAsString();
-            message = "File: " + fileName;
-        }
-        printResult(new StringAnalysisManager(string), message);
+        var selector = new OptionSelector();
+        printResult(new StringAnalysisManager(selector.getString()), selector.getMessage());
+        Integer val1 = 1;
+        Integer val2 = Integer.valueOf(1);
+        System.out.println(val1 == val2);
     }
 }

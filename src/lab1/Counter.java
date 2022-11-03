@@ -1,13 +1,15 @@
 package lab1;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Counter {
 
-    public static Map<Character, Integer> getNumberOfAppearancesOfEveryCharacter(String str) {
-        Map<Character, Integer> symbolCounter = new HashMap<>();
-        for (char symbol : str.toCharArray()) {
+    public static Map<String, Integer> getNumberOfAppearancesOfEveryCharacter(String str) {
+        Map<String, Integer> symbolCounter = new HashMap<>();
+        var array = str.split("");
+        for (var symbol : array) {
             if (!symbolCounter.containsKey(symbol)) {
                 symbolCounter.put(symbol, 1);
             } else {

@@ -10,22 +10,23 @@ import java.util.Map;
 
 public class Coder {
 
-    private final Map<String, String> letterToCode = new HashMap<>();
+    private final Map<Byte, String> letterToCode = new HashMap<>();
     private final String codedText;
     private final Node root;
     private final StringAnalysisManager analysisManager;
 
     public Coder(String text) {
+       this(text.getBytes());
+    }
+
+    public Coder(byte[] text) {
         analysisManager = new StringAnalysisManager(text);
         List<Symbol> symbols = analysisManager.getSymbols();
         var shannonFano = new ShannonFanoCoder();
         root = shannonFano.createCode(symbols);
-        symbols.forEach((x) -> {
-            letterToCode.put(x.letter(), x.code());
-        });
+        symbols.forEach((x) -> letterToCode.put(x.letter(), x.code()));
         var builder = new StringBuilder();
-        var array = text.split("");
-        for(var i : array){
+        for(var i : text){
             builder.append(letterToCode.get(i));
         }
         codedText = builder.toString();

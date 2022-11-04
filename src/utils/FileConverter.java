@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Base64;
 
 public class FileConverter {
     private final String fileName;
@@ -16,7 +17,7 @@ public class FileConverter {
         if (!file.exists()) {
             throw new RuntimeException("File doesn't exist");
         }
-        if (!file.isFile() || !file.getName().contains(".txt")) {
+        if (!file.isFile()) {
             throw new RuntimeException("It is not a correct file");
         }
     }
@@ -34,11 +35,28 @@ public class FileConverter {
     }
 
     public static String getFileAsString(File file) {
+        return getFileAsString(file.getPath());
+    }
+
+    public static byte[] getFileAsByteArray(String path) {
         try {
-            return Files.readString(Paths.get(file.getPath()));
+            return Files.readAllBytes(Paths.get(path));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static byte[] getFileAsByteArray(File file) {
+        return getFileAsByteArray(file.getPath());
+    }
+
+    public static String getBinaryFileAsString(String path) {
+        var array = getFileAsByteArray(path);
+        return Base64.getEncoder().encodeToString(array);
+    }
+
+    public static String getBinaryFileAsString(File file) {
+        return getBinaryFileAsString(file.getPath());
     }
 
     public File getFile() {

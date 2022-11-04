@@ -15,7 +15,8 @@ public class Decoder {
                 currentNode = currentNode.getRight();
             }
             if(currentNode.getLeft() == null && currentNode.getRight() == null){
-                builder.append(currentNode.getValue());
+                char value = (char) currentNode.getValue();
+                builder.append(value);
                 currentNode = root;
             }
         }

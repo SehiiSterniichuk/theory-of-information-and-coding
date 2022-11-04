@@ -3,16 +3,16 @@ package lab2.model;
 public final class Node {
     private Node left;
     private Node right;
-    private String value;
+    private byte value;
 
-    public Node(Node left, Node right, String value) {
+    public Node(Node left, Node right, byte value) {
         this.left = left;
         this.right = right;
         this.value = value;
     }
 
     public Node(){
-        this(null, null, null);
+        this(null, null, (byte)0);
     }
 
     public Node getLeft() {
@@ -23,7 +23,7 @@ public final class Node {
         return right;
     }
 
-    public String getValue() {
+    public byte getValue() {
         return value;
     }
 
@@ -35,7 +35,7 @@ public final class Node {
         this.right = right;
     }
 
-    public void setValue(String value) {
+    public void setValue(byte value) {
         this.value = value;
     }
 }

@@ -3,21 +3,21 @@ package lab2.model;
 import java.util.Objects;
 
 public final class Symbol {
-    private final String letter;
+    private final byte letter;
     private final double probability;
     private final StringBuilder code;
 
-    public Symbol(String letter, double probability) {
+    public Symbol(byte letter, double probability) {
         this(letter, probability, "");
     }
 
-    public Symbol(String letter, double probability, String code) {
+    public Symbol(byte letter, double probability, String code) {
         this.letter = letter;
         this.probability = probability;
         this.code = new StringBuilder(code);
     }
 
-    public String letter() {
+    public byte letter() {
         return letter;
     }
 

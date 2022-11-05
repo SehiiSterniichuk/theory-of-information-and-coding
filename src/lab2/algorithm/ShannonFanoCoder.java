@@ -22,10 +22,6 @@ public class ShannonFanoCoder {
             node.setValue(symbol.letter());
             return;
         }
-//        if(end - start == 2){
-//            symbols.get(start).add("0");
-//            symbols.get(end - 1).add("1");
-//        }
         var dividerIndex = Divider.getBestDiff(symbols, start, end);
         for (int i = start; i < dividerIndex; i++) {
             symbols.get(i).add("0");

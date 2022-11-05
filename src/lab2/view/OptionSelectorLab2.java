@@ -22,7 +22,6 @@ public class OptionSelectorLab2 {
         String choice = sc.nextLine();
         if (!choice.equals("1") && !choice.equals("2")) {
             option = Option.LAB;
-
         } else {
             if (choice.equals("2")) {
                 option = Option.CONSOLE;

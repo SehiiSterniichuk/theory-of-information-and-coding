@@ -29,14 +29,14 @@ public final class Symbol {
         return code.toString();
     }
 
-    public void add(String i){
+    public void add(String i) {
         code.append(i);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
-        if(!(obj instanceof Symbol symbol)){
+        if (!(obj instanceof Symbol symbol)) {
             return false;
         }
         return Objects.equals(this.letter, symbol.letter) &&

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Program {
 
-    private final String result;
+    private final Result result;
     private static final String CODED_OUTPUT_FILE_NAME = "Compressed";
     private static final String CODED_OUTPUT_FILE_AS_TEXT_NAME = "CompressedAsText.txt";
     private static final String DECODED_OUTPUT_FILE_NAME = "Decompressed.txt";
@@ -24,11 +24,11 @@ public class Program {
     public Program(File inputFile) {
         int length;
         Coder coder;
-        if(TEXT_FORMAT.equals(inputFile.getName())){
+        if (inputFile.getName().contains(TEXT_FORMAT)) {
             String inputText = FileGetter.getFileAsString(inputFile);
             coder = new Coder(inputText);
             length = inputText.length();
-        }else {
+        } else {
             var bytes = FileGetter.getFileAsByteArray(inputFile);
             coder = new Coder(bytes);
             length = bytes.length;
@@ -37,7 +37,7 @@ public class Program {
         FileManager fileManager = new FileManager();
         File compressedFile = new File(PATH_TO_FOLDER + CODED_OUTPUT_FILE_NAME);
         File zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_FOLDER + ZIP_FILE_NAME);
-        fileManager.byteWrite(compressedFile, stringToBytes(codedText));
+        fileManager.byteWrite(compressedFile, binaryStringToBytes(codedText));
         fileManager.createAndWrite(PATH_TO_FOLDER + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
         var decoder = new Decoder();
         String decodedText = decoder.decode(codedText, coder.getRoot());
@@ -45,11 +45,11 @@ public class Program {
         result = makeResult(inputFile, compressedFile, zipFile, length, coder);
     }
 
-    private String makeResult(File inputFile, File compressedFile, File zip, int lengthOfInput,
+    private Result makeResult(File inputFile, File compressedFile, File zip, int lengthOfInput,
                               Coder coder) {
         var list = coder.getAnalysisManager().getSymbols();
         double averageLengthOfCodeCombinations = averageLengthOfCodeCombinations(list);
-        return Result.of(inputFile.getName(),
+        return new Result(inputFile.getName(),
                 new FileSize(inputFile.length()),
                 new FileSize(compressedFile.length()),
                 new FileSize(zip.length()),
@@ -57,7 +57,13 @@ public class Program {
                 coder.getAnalysisManager().getTotalEntropy(),
                 coder.getAnalysisManager().maxEntropy,
                 averageLengthOfCodeCombinations,
-                coefficientOfCompression(coder, averageLengthOfCodeCombinations));
+                coefficientOfCompression(coder, averageLengthOfCodeCombinations),
+                saveSpaceRatio(inputFile, compressedFile),
+                saveSpaceRatio(inputFile, zip));
+    }
+
+    private double saveSpaceRatio(File source, File archive) {
+        return 1 - archive.length() / ((double) source.length());
     }
 
     private double coefficientOfCompression(Coder coder, double averageLengthOfCodeCombinations) {
@@ -68,11 +74,11 @@ public class Program {
         return list.stream().mapToDouble((x) -> x.code().length() * x.probability()).sum();
     }
 
-    public String getResult() {
+    public Result getResult() {
         return result;
     }
 
-    private byte[] stringToBytes(String s) {
+    private byte[] binaryStringToBytes(String s) {
         int sizeOfArray = s.length() / 8;
         if (s.length() % 8 != 0) {
             sizeOfArray++;

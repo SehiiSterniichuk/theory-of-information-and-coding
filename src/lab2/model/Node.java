@@ -11,8 +11,8 @@ public final class Node {
         this.value = value;
     }
 
-    public Node(){
-        this(null, null, (byte)0);
+    public Node() {
+        this(null, null, (byte) 0);
     }
 
     public Node getLeft() {

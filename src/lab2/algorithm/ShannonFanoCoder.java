@@ -8,16 +8,15 @@ import java.util.*;
 public class ShannonFanoCoder {
 
     public Node createCode(List<Symbol> symbols) {
-        final Node root =  new Node();
-
+        final Node root = new Node();
         //noinspection ResultOfMethodCallIgnored
         symbols.stream().sorted(Comparator.comparingDouble(Symbol::probability));
         recursiveCoding(symbols, 0, symbols.size(), root);
         return root;
     }
 
-    private void recursiveCoding(List<Symbol> symbols, int start, int end, Node node){
-        if(end - start <= 1){
+    private void recursiveCoding(List<Symbol> symbols, int start, int end, Node node) {
+        if (end - start <= 1) {
             node.setValue(symbols.get(start).letter());
             return;
         }

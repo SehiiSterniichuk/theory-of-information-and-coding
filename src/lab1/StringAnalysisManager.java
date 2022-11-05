@@ -27,10 +27,9 @@ public class StringAnalysisManager {
         symbolCounter.forEach((key, numberOfAppearances) -> {
             double probability = numberOfAppearances.doubleValue() / lengthOfString.doubleValue();
             totalEntropy += calculateEntropyOfSymbol(probability);
-            symbols.add(new Symbol(key,probability));
+            symbols.add(new Symbol(key, probability));
         });
         int size = symbolCounter.size();
-        System.out.println("size = " + size);
         averageEntropy = averageEntropy(size, totalEntropy);
         amountOfInformation = amountOfInformation(lengthOfString, totalEntropy);
         maxEntropy = maxEntropy(size);

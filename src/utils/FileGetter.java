@@ -55,6 +55,18 @@ public class FileGetter {
         return Base64.getEncoder().encodeToString(array);
     }
 
+    public static File[] getFiles(String pathToFolder){
+        var folder = new File(pathToFolder);
+        if(!folder.isDirectory()){
+            throw new IllegalArgumentException("It is not a directory");
+        }
+        return getFiles(folder);
+    }
+
+    public static File[] getFiles(File folder){
+        return folder.listFiles();
+    }
+
     @SuppressWarnings("unused")
     public static String getBinaryFileAsString(File file) {
         return getBinaryFileAsString(file.getPath());

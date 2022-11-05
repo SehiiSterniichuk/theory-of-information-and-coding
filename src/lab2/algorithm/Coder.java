@@ -16,7 +16,7 @@ public class Coder {
     private final StringAnalysisManager analysisManager;
 
     public Coder(String text) {
-       this(text.getBytes());
+        this(text.getBytes());
     }
 
     public Coder(byte[] text) {
@@ -26,7 +26,7 @@ public class Coder {
         root = shannonFano.createCode(symbols);
         symbols.forEach((x) -> letterToCode.put(x.letter(), x.code()));
         var builder = new StringBuilder();
-        for(var i : text){
+        for (var i : text) {
             builder.append(letterToCode.get(i));
         }
         codedText = builder.toString();

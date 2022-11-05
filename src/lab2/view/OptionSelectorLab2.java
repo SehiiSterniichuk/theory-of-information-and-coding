@@ -4,28 +4,36 @@ import java.util.Scanner;
 
 public class OptionSelectorLab2 {
 
-    public enum Option{
-        FILE, CONSOLE
+    public enum Option {
+        FILE, CONSOLE, LAB
     }
 
-    private Option option;
+    private final Option option;
 
     private String message;
 
     public OptionSelectorLab2() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("if you want to work with file enter 1, otherwise you will be work with string");
+        System.out.println("""
+                If you want to work with file enter 1
+                if you want to work with string tap 2
+                otherwise lab tasks will be executed""");
         System.out.print("Enter: ");
         String choice = sc.nextLine();
-        if (!choice.equals("1")) {
-            option = Option.CONSOLE;
-            System.out.println("Please, enter your string");
+        if (!choice.equals("1") && !choice.equals("2")) {
+            option = Option.LAB;
+
         } else {
-            option = Option.FILE;
-            System.out.println("Please, enter name of your file");
+            if (choice.equals("2")) {
+                option = Option.CONSOLE;
+                System.out.println("Please, enter your string");
+            } else {
+                option = Option.FILE;
+                System.out.println("Please, enter name of your file");
+            }
+            System.out.print("Enter: ");
+            message = sc.nextLine();
         }
-        System.out.print("Enter: ");
-        message = sc.nextLine();
     }
 
     public String getMessage() {
@@ -36,7 +44,11 @@ public class OptionSelectorLab2 {
         return option;
     }
 
-    public boolean isConsole(){
+    public boolean isConsole() {
         return getOption() == Option.CONSOLE;
+    }
+
+    public boolean isFile() {
+        return getOption() == Option.FILE;
     }
 }

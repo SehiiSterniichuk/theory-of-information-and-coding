@@ -3,7 +3,7 @@ package lab2.algorithm;
 import lab2.model.Node;
 
 public class Decoder {
-
+    @SuppressWarnings("ConstantConditions")
     public String decode(String codedStr, Node root){
         var array = codedStr.split("");
         var builder = new StringBuilder();
@@ -14,6 +14,7 @@ public class Decoder {
             }else{
                 currentNode = currentNode.getRight();
             }
+
             if(currentNode.getLeft() == null && currentNode.getRight() == null){
                 char value = (char) currentNode.getValue();
                 builder.append(value);

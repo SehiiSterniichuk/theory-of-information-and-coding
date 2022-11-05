@@ -28,6 +28,4 @@ public class Formulas {
     public static double relativeExcess(double absoluteExcess, double maxEntropy) {
         return absoluteExcess / maxEntropy;
     }
-
-
 }

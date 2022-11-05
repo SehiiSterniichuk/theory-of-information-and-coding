@@ -7,10 +7,10 @@ import java.util.*;
 
 public class ShannonFanoCoder {
 
-    private Divider divider = new Divider();
-
     public Node createCode(List<Symbol> symbols) {
         final Node root =  new Node();
+
+        //noinspection ResultOfMethodCallIgnored
         symbols.stream().sorted(Comparator.comparingDouble(Symbol::probability));
         recursiveCoding(symbols, 0, symbols.size(), root);
         return root;
@@ -21,7 +21,7 @@ public class ShannonFanoCoder {
             node.setValue(symbols.get(start).letter());
             return;
         }
-        var dividerIndex = divider.getBestDiff(symbols, start, end);
+        var dividerIndex = Divider.getBestDiff(symbols, start, end);
         for (int i = start; i < dividerIndex; i++) {
             symbols.get(i).add("0");
         }

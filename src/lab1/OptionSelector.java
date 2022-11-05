@@ -1,18 +1,12 @@
 package lab1;
 
-import utils.FileConverter;
+import utils.FileGetter;
 
 import java.util.Scanner;
 
 public class OptionSelector {
 
-    public enum Option{
-        FILE, CONSOLE
-    }
-
-    private Option option;
-
-    private String message, string;
+    private final String message, string;
 
     public OptionSelector() {
         Scanner sc = new Scanner(System.in);
@@ -21,17 +15,15 @@ public class OptionSelector {
         String choice = sc.nextLine();
 
         if (!choice.equals("1")) {
-            option = Option.FILE;
             System.out.println("Please, enter your string");
             System.out.print("Enter: ");
             string = sc.nextLine();
             message = "String: " + string;
         } else {
-            option = Option.CONSOLE;
             System.out.println("Please, enter name of your file");
             System.out.print("Enter: ");
             String fileName = sc.nextLine();
-            FileConverter converter = new FileConverter(fileName);
+            FileGetter converter = new FileGetter(fileName);
             string = converter.getFileAsString();
             message = "File: " + fileName;
         }
@@ -41,15 +33,8 @@ public class OptionSelector {
         return message;
     }
 
-    public Option getOption() {
-        return option;
-    }
-
     public String getString() {
         return string;
     }
 
-    public boolean isConsole(){
-        return getOption() == OptionSelector.Option.CONSOLE;
-    }
 }

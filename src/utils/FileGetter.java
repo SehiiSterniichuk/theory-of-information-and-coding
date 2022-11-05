@@ -6,12 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 
-public class FileConverter {
+public class FileGetter {
     private final String fileName;
     private final String pathToDataFolder = "src/resources/";
     private final File file;
 
-    public FileConverter(String fileName) {
+    public FileGetter(String fileName) {
         this.fileName = fileName;
         file = new File(pathToDataFolder + fileName);
         if (!file.exists()) {
@@ -55,6 +55,7 @@ public class FileConverter {
         return Base64.getEncoder().encodeToString(array);
     }
 
+    @SuppressWarnings("unused")
     public static String getBinaryFileAsString(File file) {
         return getBinaryFileAsString(file.getPath());
     }

@@ -14,7 +14,6 @@ public class StringAnalysisManager {
     public final double maxEntropy;
     public final double absoluteExcess;
     public final double relativeExcess;
-    private final Map<Byte, Integer> symbolCounter;
     private final List<Symbol> symbols;
 
     public StringAnalysisManager(String string) {
@@ -23,7 +22,7 @@ public class StringAnalysisManager {
 
     public StringAnalysisManager(byte[] string) {
         lengthOfString = string.length;
-        symbolCounter = Counter.getNumberOfAppearancesOfEveryCharacter(string);
+        Map<Byte, Integer> symbolCounter = Counter.getNumberOfAppearancesOfEveryCharacter(string);
         symbols = new LinkedList<>();
         symbolCounter.forEach((key, numberOfAppearances) -> {
             double probability = numberOfAppearances.doubleValue() / lengthOfString.doubleValue();
@@ -40,7 +39,7 @@ public class StringAnalysisManager {
     }
 
     public List<Symbol> getSymbols() {
-        return List.copyOf(symbols);
+        return new ArrayList<>(symbols);
     }
 
     public double getTotalEntropy() {

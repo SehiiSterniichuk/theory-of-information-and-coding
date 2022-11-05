@@ -5,12 +5,11 @@ import lab2.algorithm.Decoder;
 import lab2.model.Symbol;
 import lab2.view.FileSize;
 import lab2.view.Result;
-import utils.FileConverter;
+import utils.FileGetter;
 import utils.FileManager;
 
 import java.io.File;
 import java.util.List;
-import java.util.OptionalDouble;
 
 public class Program {
 
@@ -18,6 +17,7 @@ public class Program {
     private static final String CODED_OUTPUT_FILE_NAME = "Compressed";
     private static final String CODED_OUTPUT_FILE_AS_TEXT_NAME = "CompressedAsText.txt";
     private static final String DECODED_OUTPUT_FILE_NAME = "Decompressed.txt";
+    private static final String ZIP_FILE_NAME = "Zip.zip";
     private static final String PATH_TO_FOLDER = "src/resources/";
     private static final String TEXT_FORMAT = ".txt";
 
@@ -25,36 +25,34 @@ public class Program {
         int length;
         Coder coder;
         if(TEXT_FORMAT.equals(inputFile.getName())){
-            String inputText = FileConverter.getFileAsString(inputFile);
+            String inputText = FileGetter.getFileAsString(inputFile);
             coder = new Coder(inputText);
             length = inputText.length();
         }else {
-            var bytes = FileConverter.getFileAsByteArray(inputFile);
+            var bytes = FileGetter.getFileAsByteArray(inputFile);
             coder = new Coder(bytes);
             length = bytes.length;
         }
         String codedText = coder.getCodedText();
         FileManager fileManager = new FileManager();
         File compressedFile = new File(PATH_TO_FOLDER + CODED_OUTPUT_FILE_NAME);
+        File zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_FOLDER + ZIP_FILE_NAME);
         fileManager.byteWrite(compressedFile, stringToBytes(codedText));
         fileManager.createAndWrite(PATH_TO_FOLDER + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
         var decoder = new Decoder();
         String decodedText = decoder.decode(codedText, coder.getRoot());
         fileManager.createAndWrite(PATH_TO_FOLDER + DECODED_OUTPUT_FILE_NAME, decodedText);
-        result = makeResult(inputFile, compressedFile, length, coder);
-
-        for (var symbol: coder.getAnalysisManager().getSymbols()) {
-            System.out.printf("%c\t%s\t%f\t\n", (char)symbol.letter(), symbol.code(), symbol.probability());
-//            System.out.printf("%c\t%f\n", (char)symbol.letter(), symbol.probability());
-        }
+        result = makeResult(inputFile, compressedFile, zipFile, length, coder);
     }
 
-    private String makeResult(File inputFile, File compressedFile, int lengthOfInput,
+    private String makeResult(File inputFile, File compressedFile, File zip, int lengthOfInput,
                               Coder coder) {
         var list = coder.getAnalysisManager().getSymbols();
         double averageLengthOfCodeCombinations = averageLengthOfCodeCombinations(list);
         return Result.of(inputFile.getName(),
-                new FileSize(inputFile.length()), new FileSize(compressedFile.length()),
+                new FileSize(inputFile.length()),
+                new FileSize(compressedFile.length()),
+                new FileSize(zip.length()),
                 lengthOfInput,
                 coder.getAnalysisManager().getTotalEntropy(),
                 coder.getAnalysisManager().maxEntropy,
@@ -62,21 +60,12 @@ public class Program {
                 coefficientOfCompression(coder, averageLengthOfCodeCombinations));
     }
 
-    private double coefficientOfCompression(File original, File compressed) {
-        return coefficientOfCompression(original.length(), compressed.length());
-    }
-
-    private double coefficientOfCompression(double original, double compressed) {
-        return original / compressed;
-    }
-
     private double coefficientOfCompression(Coder coder, double averageLengthOfCodeCombinations) {
         return coder.getAnalysisManager().maxEntropy / averageLengthOfCodeCombinations;
     }
 
     private double averageLengthOfCodeCombinations(List<Symbol> list) {
-        var sum = list.stream().mapToDouble((x) -> x.code().length() * x.probability()).sum();
-        return sum;
+        return list.stream().mapToDouble((x) -> x.code().length() * x.probability()).sum();
     }
 
     public String getResult() {

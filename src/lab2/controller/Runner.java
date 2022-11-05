@@ -31,6 +31,7 @@ public class Runner {
                             createAndWrite(PATH_TO_FOLDER + CONSOLE_FILE_NAME, selector.getMessage());
                 }
                 var program = new Program(file);
+                if(selector.isConsole()) program.printCodes();
                 var result = program.getResult();
                 System.out.println(result);
             }

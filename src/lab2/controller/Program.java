@@ -13,13 +13,15 @@ import java.util.List;
 
 public class Program {
 
-    private final Result result;
     private static final String CODED_OUTPUT_FILE_NAME = "Compressed";
     private static final String CODED_OUTPUT_FILE_AS_TEXT_NAME = "CompressedAsText.txt";
     private static final String DECODED_OUTPUT_FILE_NAME = "Decompressed.txt";
     private static final String ZIP_FILE_NAME = "Zip.zip";
     private static final String PATH_TO_FOLDER = "src/resources/";
     private static final String TEXT_FORMAT = ".txt";
+
+    private final Result result;
+    private final List<Symbol> symbols;
 
     public Program(File inputFile) {
         int length;
@@ -43,6 +45,13 @@ public class Program {
         String decodedText = decoder.decode(codedText, coder.getRoot());
         fileManager.createAndWrite(PATH_TO_FOLDER + DECODED_OUTPUT_FILE_NAME, decodedText);
         result = makeResult(inputFile, compressedFile, zipFile, length, coder);
+        this.symbols = coder.getAnalysisManager().getSymbols();
+    }
+
+    public void printCodes() {
+        for (var s : symbols) {
+            System.out.printf("%c\t%f\t%s\n", (char) s.letter(), s.probability(), s.code());
+        }
     }
 
     private Result makeResult(File inputFile, File compressedFile, File zip, int lengthOfInput,

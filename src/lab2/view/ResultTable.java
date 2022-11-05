@@ -5,9 +5,12 @@ import dnl.utils.text.table.TextTable;
 import java.util.List;
 
 public class ResultTable {
-    private static final String[] heading = {"Name", "Original:Size", "Original:Entropy",
-            "Shannon:Size", "Shannon:Compression", "Shannon:Saved",
-            "Zip:Size", "Zip:Saved"};
+//    private static final String[] heading = {"Name", "Original:Size", "Original:Entropy",
+//            "Shannon:Size", "Shannon:Compression", "Shannon:Saved",
+//            "Zip:Size", "Zip:Saved"};
+    private static final String[] heading = {"Назва", "Оригінал:Розмір", "Оригінал:Ентропія",
+            "Програма:Розмір", "Програма:Коеф. стиснення", "Програма:Збережено",
+            "Zip:Розмір", "Zip:Збережено"};
     private final TextTable table;
 
     public ResultTable(final List<Result> results) {

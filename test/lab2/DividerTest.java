@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DividerTest {
     List<Symbol> listParameter = List.of(
-            new Symbol("A", 0.3),
-            new Symbol("B", 0.25),
-            new Symbol("C", 0.2),
-            new Symbol("D", 0.12),
-            new Symbol("E", 0.08),
-            new Symbol("F", 0.05)
+            new Symbol((byte)'A', 0.3),
+            new Symbol((byte)'B', 0.25),
+            new Symbol((byte)'C', 0.2),
+            new Symbol((byte)'D', 0.12),
+            new Symbol((byte)'E', 0.08),
+            new Symbol((byte)'F', 0.05)
     );
 
     @Test

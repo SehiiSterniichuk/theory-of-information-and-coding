@@ -9,8 +9,7 @@ public class ShannonFanoCoder {
 
     public Node createCode(List<Symbol> symbols) {
         final Node root = new Node();
-        //noinspection ResultOfMethodCallIgnored
-        symbols.stream().sorted(Comparator.comparingDouble(Symbol::probability));
+        symbols.sort(Comparator.comparingDouble(Symbol::probability).reversed());
         recursiveCoding(symbols, 0, symbols.size(), root);
         return root;
     }

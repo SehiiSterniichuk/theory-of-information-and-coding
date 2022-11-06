@@ -52,7 +52,7 @@ public final class Symbol {
     @Override
     public String toString() {
         return "Symbol[" +
-                "letter=" + letter + ", " +
+                "letter=" + (char)letter + ", " +
                 "probability=" + probability + ", " +
                 "code=" + code + ']';
     }

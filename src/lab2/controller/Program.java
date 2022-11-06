@@ -9,6 +9,7 @@ import utils.FileGetter;
 import utils.FileManager;
 
 import java.io.File;
+import java.util.Comparator;
 import java.util.List;
 
 public class Program {
@@ -46,6 +47,7 @@ public class Program {
         fileManager.createAndWrite(PATH_TO_FOLDER + DECODED_OUTPUT_FILE_NAME, decodedText);
         result = makeResult(inputFile, compressedFile, zipFile, length, coder);
         this.symbols = coder.getAnalysisManager().getSymbols();
+        symbols.sort(Comparator.comparingDouble(Symbol::probability).reversed());
     }
 
     public void printCodes() {

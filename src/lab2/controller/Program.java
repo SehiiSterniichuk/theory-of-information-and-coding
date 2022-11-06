@@ -23,6 +23,7 @@ public class Program {
 
     private final Result result;
     private final List<Symbol> symbols;
+    private final String codedText;
 
     public Program(File inputFile) {
         int length;
@@ -36,10 +37,10 @@ public class Program {
             coder = new Coder(bytes);
             length = bytes.length;
         }
-        String codedText = coder.getCodedText();
+        codedText = coder.getCodedText();
         FileManager fileManager = new FileManager();
-        File compressedFile = new File(PATH_TO_FOLDER + CODED_OUTPUT_FILE_NAME);
         File zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_FOLDER + ZIP_FILE_NAME);
+        File compressedFile = new File(PATH_TO_FOLDER + CODED_OUTPUT_FILE_NAME);
         fileManager.byteWrite(compressedFile, binaryStringToBytes(codedText));
         fileManager.createAndWrite(PATH_TO_FOLDER + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
         var decoder = new Decoder();
@@ -54,6 +55,10 @@ public class Program {
         for (var s : symbols) {
             System.out.printf("%c\t%f\t%s\n", (char) s.letter(), s.probability(), s.code());
         }
+    }
+
+    public String getCodedText() {
+        return codedText;
     }
 
     private Result makeResult(File inputFile, File compressedFile, File zip, int lengthOfInput,

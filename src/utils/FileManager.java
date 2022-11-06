@@ -73,6 +73,4 @@ public class FileManager {
     public File archiveFileToZip(File sourceFile, String zipFileName) {
         return archiveFileToZip(sourceFile, new File(zipFileName));
     }
-
-
 }

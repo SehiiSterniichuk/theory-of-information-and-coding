@@ -13,7 +13,7 @@ public class Runner {
     private static final String PATH_TO_FOLDER = "src/resources/";
     private static final String CONSOLE_FILE_NAME = "Console.txt";
     private static final String PATH_TO_TEXT_FOLDER = PATH_TO_FOLDER + "casual/eng/";
-    private static final String PATH_TO_MEDIA_FOLDER = PATH_TO_FOLDER + "media/";
+    private static final String PATH_TO_MEDIA_FOLDER = PATH_TO_FOLDER + "differentTypes/";
 
 
     public static void main(String[] args) {
@@ -31,9 +31,10 @@ public class Runner {
                             createAndWrite(PATH_TO_FOLDER + CONSOLE_FILE_NAME, selector.getMessage());
                 }
                 var program = new Program(file);
-                if(selector.isConsole()) program.printCodes();
+                if (selector.isConsole()) System.out.println("Coded string:\t" + program.getCodedText());
                 var result = program.getResult();
                 System.out.println(result);
+                if (selector.isConsole()) program.printCodes();
             }
             case LAB -> ranLab();
         }
@@ -42,8 +43,9 @@ public class Runner {
     static void ranLab() {
         final var listOfTextFiles = FileGetter.getFiles(PATH_TO_TEXT_FOLDER);
         final var listOfMediaFiles = FileGetter.getFiles(PATH_TO_MEDIA_FOLDER);
+        System.out.println("\nText length analiz:");
         analizListOfFiles(listOfTextFiles);
-        System.out.println("\nMedia...");
+        System.out.println("\nDifferent types...");
         analizListOfFiles(listOfMediaFiles);
     }
 

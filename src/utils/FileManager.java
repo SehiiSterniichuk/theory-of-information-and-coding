@@ -28,12 +28,12 @@ public class FileManager {
         return file;
     }
 
-    public File createAndWrite(String fileName, String text) {
+    public File write(String fileName, String text) {
         File file = new File(fileName);
-        return createAndWrite(file, text);
+        return write(file, text);
     }
 
-    public File createAndWrite(File file, String text) {
+    public File write(File file, String text) {
         try (var myWriter = new FileWriter(file)) {
             myWriter.write(text);
         } catch (IOException e) {

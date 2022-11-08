@@ -28,7 +28,7 @@ public class Runner {
                     file = converter.getFile();
                 } else {
                     file = (new FileManager()).
-                            createAndWrite(PATH_TO_FOLDER + CONSOLE_FILE_NAME, selector.getMessage());
+                            write(PATH_TO_FOLDER + CONSOLE_FILE_NAME, selector.getMessage());
                 }
                 var program = new Program(file);
                 if (selector.isConsole()) System.out.println("Coded string:\t" + program.getCodedText());

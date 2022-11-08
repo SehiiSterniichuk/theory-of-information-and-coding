@@ -42,10 +42,10 @@ public class Program {
         File zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_FOLDER + ZIP_FILE_NAME);
         File compressedFile = new File(PATH_TO_FOLDER + CODED_OUTPUT_FILE_NAME);
         fileManager.byteWrite(compressedFile, binaryStringToBytes(codedText));
-        fileManager.createAndWrite(PATH_TO_FOLDER + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
+        fileManager.write(PATH_TO_FOLDER + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
         var decoder = new Decoder();
         String decodedText = decoder.decode(codedText, coder.getRoot());
-        fileManager.createAndWrite(PATH_TO_FOLDER + DECODED_OUTPUT_FILE_NAME, decodedText);
+        fileManager.write(PATH_TO_FOLDER + DECODED_OUTPUT_FILE_NAME, decodedText);
         result = makeResult(inputFile, compressedFile, zipFile, length, coder);
         this.symbols = coder.getAnalysisManager().getSymbols();
         symbols.sort(Comparator.comparingDouble(Symbol::probability).reversed());

@@ -5,6 +5,7 @@ import lab2.algorithm.Decoder;
 import lab2.model.Symbol;
 import lab2.view.FileSize;
 import lab2.view.Result;
+import utils.AlgorithmCoder;
 import utils.FileGetter;
 import utils.FileManager;
 
@@ -25,16 +26,16 @@ public class Program {
     private final List<Symbol> symbols;
     private final String codedText;
 
-    public Program(File inputFile) {
+    public Program(File inputFile, AlgorithmCoder algorithmCoder) {
         int length;
         Coder coder;
         if (inputFile.getName().contains(TEXT_FORMAT)) {
             String inputText = FileGetter.getFileAsString(inputFile);
-            coder = new Coder(inputText);
+            coder = new Coder(inputText, algorithmCoder);
             length = inputText.length();
         } else {
             var bytes = FileGetter.getFileAsByteArray(inputFile);
-            coder = new Coder(bytes);
+            coder = new Coder(bytes, algorithmCoder);
             length = bytes.length;
         }
         codedText = coder.getCodedText();
@@ -46,7 +47,7 @@ public class Program {
         var decoder = new Decoder();
         String decodedText = decoder.decode(codedText, coder.getRoot());
         fileManager.write(PATH_TO_FOLDER + DECODED_OUTPUT_FILE_NAME, decodedText);
-        result = makeResult(inputFile, compressedFile, zipFile, length, coder);
+        result = makeResult(inputFile, compressedFile, zipFile, length, coder, algorithmCoder.getName());
         this.symbols = coder.getAnalysisManager().getSymbols();
         symbols.sort(Comparator.comparingDouble(Symbol::probability).reversed());
     }
@@ -62,7 +63,7 @@ public class Program {
     }
 
     private Result makeResult(File inputFile, File compressedFile, File zip, int lengthOfInput,
-                              Coder coder) {
+                              Coder coder, String methodName) {
         var list = coder.getAnalysisManager().getSymbols();
         double averageLengthOfCodeCombinations = averageLengthOfCodeCombinations(list);
         return new Result(inputFile.getName(),
@@ -75,7 +76,8 @@ public class Program {
                 averageLengthOfCodeCombinations,
                 coefficientOfCompression(coder, averageLengthOfCodeCombinations),
                 saveSpaceRatio(inputFile, compressedFile),
-                saveSpaceRatio(inputFile, zip));
+                saveSpaceRatio(inputFile, zip),
+                methodName);
     }
 
     private double saveSpaceRatio(File source, File archive) {

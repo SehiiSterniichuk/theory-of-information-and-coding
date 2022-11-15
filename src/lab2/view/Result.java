@@ -12,7 +12,8 @@ public record Result(String name,
                      double averageLengthOfCodeCombinations,
                      double coefficientOfCompression,
                      double shannonSaveSpaceRatio,
-                     double zipSaveSpaceRatio) {
+                     double zipSaveSpaceRatio,
+                     String methodName) {
 
     static private final DecimalFormat numView = new DecimalFormat("#.###");
 
@@ -28,7 +29,7 @@ public record Result(String name,
                 "\nAverage length of code combinations = " + numView.format(averageLengthOfCodeCombinations) +
                 "\nCoefficient of compression = " + coefficientOfCompressionString() +
                 "\nZip save space ratio = " + zipSaveSpaceRatioString() +
-                "\nShannon–Fano save space ratio = " + shannonSaveSpaceRatioString() +
+                "\n"+ methodName +" save space ratio = " + shannonSaveSpaceRatioString() +
                 "\n}";
     }
 

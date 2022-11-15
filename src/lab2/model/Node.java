@@ -1,6 +1,6 @@
 package lab2.model;
 
-public final class Node {
+public class Node {
     private Node left;
     private Node right;
     private byte value;
@@ -37,5 +37,9 @@ public final class Node {
 
     public void setValue(byte value) {
         this.value = value;
+    }
+
+    public boolean hasChildren(){
+        return getLeft() != null && getRight() != null;
     }
 }

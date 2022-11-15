@@ -2,11 +2,13 @@ package lab2.algorithm;
 
 import lab2.model.Node;
 import lab2.model.Symbol;
+import utils.AlgorithmCoder;
 
 import java.util.*;
 
-public class ShannonFanoCoder {
+public class ShannonFanoCoder implements AlgorithmCoder{
 
+    @Override
     public Node createCode(List<Symbol> symbols) {
         final Node root = new Node();
         symbols.sort(Comparator.comparingDouble(Symbol::probability).reversed());
@@ -32,5 +34,10 @@ public class ShannonFanoCoder {
         node.setRight(new Node());
         recursiveCoding(symbols, start, dividerIndex, node.getLeft());
         recursiveCoding(symbols, dividerIndex, end, node.getRight());
+    }
+
+    @Override
+    public String getName() {
+        return "Shannon–Fano";
     }
 }

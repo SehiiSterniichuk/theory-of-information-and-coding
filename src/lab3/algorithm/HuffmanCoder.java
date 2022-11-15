@@ -24,8 +24,7 @@ public class HuffmanCoder implements AlgorithmCoder {
 
     private static void getCodeCombinations(Node root, Map<Byte, Symbol> symbolMap, byte[] code) {
         if (!root.hasChildren()) {
-            var str = new String(code, StandardCharsets.UTF_8);
-            symbolMap.get(root.getValue()).add(str);
+            symbolMap.get(root.getValue()).add(new String(code, StandardCharsets.UTF_8));
             return;
         }
         var newCode = Arrays.copyOf(code, code.length + 1);

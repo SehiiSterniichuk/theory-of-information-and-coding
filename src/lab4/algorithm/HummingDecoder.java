@@ -1,4 +1,4 @@
-package lab4;
+package lab4.algorithm;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

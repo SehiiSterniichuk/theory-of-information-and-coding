@@ -1,4 +1,4 @@
-package lab4;
+package utils;
 
 public class ByteUtil {
     public static byte charNumberToValue(byte b){

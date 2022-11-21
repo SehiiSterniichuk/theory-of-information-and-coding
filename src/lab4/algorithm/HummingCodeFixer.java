@@ -1,6 +1,6 @@
-package lab4;
+package lab4.algorithm;
 
-import static lab4.ByteUtil.changeSign;
+import static utils.ByteUtil.changeSign;
 
 public class HummingCodeFixer {
 

@@ -1,6 +1,6 @@
 package lab1;
 
-import utils.FileGetter;
+import utils.file.FileGetter;
 
 import java.util.Scanner;
 

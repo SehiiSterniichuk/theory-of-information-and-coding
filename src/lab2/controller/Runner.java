@@ -5,8 +5,8 @@ import lab2.view.OptionSelectorLab2;
 import lab2.view.Result;
 import lab2.view.ResultTable;
 import utils.AlgorithmCoder;
-import utils.FileGetter;
-import utils.FileManager;
+import utils.file.FileGetter;
+import utils.file.FileManager;
 
 import java.io.File;
 import java.util.*;

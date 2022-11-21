@@ -1,7 +1,7 @@
-package lab4;
+package lab4.algorithm;
 
 import java.nio.charset.StandardCharsets;
-import static lab4.ByteUtil.*;
+import static utils.ByteUtil.*;
 
 public class HammingCoder  {
     public static void main(String[] args) {

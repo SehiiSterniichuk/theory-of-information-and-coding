@@ -6,8 +6,8 @@ import lab2.model.Symbol;
 import lab2.view.FileSize;
 import lab2.view.Result;
 import utils.AlgorithmCoder;
-import utils.FileGetter;
-import utils.FileManager;
+import utils.file.FileGetter;
+import utils.file.FileManager;
 
 import java.io.File;
 import java.util.Comparator;

@@ -10,6 +10,7 @@ import utils.file.FileGetter;
 import utils.file.FileManager;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,29 +20,24 @@ public class Program {
 
     private final Result result;
     private final List<Symbol> symbols;
-    private final String codedText;
+    private final byte[] codedText;
 
     public Program(File inputFile, AlgorithmCoder algorithmCoder) {
-        int length;
-        Coder coder;
-        if (inputFile.getName().contains(TEXT_FORMAT.getPath())) {
-            String inputText = FileGetter.getFileAsString(inputFile);
-            coder = new Coder(inputText, algorithmCoder);
-            length = inputText.length();
-        } else {
-            var bytes = FileGetter.getFileAsByteArray(inputFile);
-            coder = new Coder(bytes, algorithmCoder);
-            length = bytes.length;
-        }
+        var data = FileGetter.getFileAsByteArray(inputFile);
+        Coder coder = new Coder(data, algorithmCoder);
+        int length = data.length;
         codedText = coder.getCodedText();
-        FileManager fileManager = new FileManager();
+
+        var fileManager = new FileManager();
         File zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_FOLDER + "" + ZIP_FILE_NAME);
         File compressedFile = new File(PATH_TO_FOLDER + "" + CODED_OUTPUT_FILE_NAME);
-        fileManager.byteWrite(compressedFile, binaryStringToBytes(codedText));
+        fileManager.byteWrite(compressedFile, fileManager.binaryStringToBytes(codedText));
         fileManager.write(PATH_TO_FOLDER + "" + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
+
         var decoder = new Decoder();
         String decodedText = decoder.decode(codedText, coder.getRoot());
         fileManager.write(PATH_TO_FOLDER + "" + DECODED_OUTPUT_FILE_NAME, decodedText);
+
         result = makeResult(inputFile, compressedFile, zipFile, length, coder, algorithmCoder.getName());
         this.symbols = coder.getAnalysisManager().getSymbols();
         symbols.sort(Comparator.comparingDouble(Symbol::probability).reversed());
@@ -54,7 +50,7 @@ public class Program {
     }
 
     public String getCodedText() {
-        return codedText;
+        return new String(codedText, StandardCharsets.UTF_8);
     }
 
     private Result makeResult(File inputFile, File compressedFile, File zip, int lengthOfInput,
@@ -91,20 +87,4 @@ public class Program {
         return result;
     }
 
-    private byte[] binaryStringToBytes(String s) {
-        int sizeOfArray = s.length() / 8;
-        if (s.length() % 8 != 0) {
-            sizeOfArray++;
-        }
-        byte[] data = new byte[sizeOfArray];
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (c == '1') {
-                data[i >> 3] |= 0x80 >> (i & 0x7);
-            } else if (c != '0') {
-                throw new IllegalArgumentException("Invalid char in binary string");
-            }
-        }
-        return data;
-    }
 }

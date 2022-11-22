@@ -1,23 +1,13 @@
 package utils.file;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class FileManager {
 
-    @SuppressWarnings("unused")
-    public File byteWrite(String fileName, String text) {
-        File file = new File(fileName);
-        return byteWrite(file, text);
-    }
-
-    public File byteWrite(File file, String text) {
-        byte[] bytes = text.getBytes();
-        return byteWrite(file, bytes);
-    }
-
-    public File byteWrite(File file, byte[] array) {
+    public void byteWrite(File file, byte[] array) {
         try (var outputStream = new FileOutputStream(file)) {
             for (var i : array) {
                 outputStream.write(i);
@@ -25,7 +15,6 @@ public class FileManager {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return file;
     }
 
     public File write(String fileName, String text) {
@@ -40,6 +29,19 @@ public class FileManager {
             throw new RuntimeException(e);
         }
         return file;
+    }
+
+    public void write(String fileName, byte[] array) {
+        File file = new File(fileName);
+        write(file, array);
+    }
+
+    public void write(File file, byte[] array) {
+        try {
+            java.nio.file.Files.write(Path.of(file.getPath()), array);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public File archiveFileToZip(File fileToZip, File zipFileName) {
@@ -60,17 +62,25 @@ public class FileManager {
         return zipFileName;
     }
 
-    @SuppressWarnings("unused")
-    public File archiveFileToZip(String sourceFileName, String zipFileName) {
-        return archiveFileToZip(new File(sourceFileName), new File(zipFileName));
-    }
-
-    @SuppressWarnings("unused")
-    public File archiveFileToZip(String sourceFileName, File zipFile) {
-        return archiveFileToZip(new File(sourceFileName),zipFile);
-    }
-
     public File archiveFileToZip(File sourceFile, String zipFileName) {
         return archiveFileToZip(sourceFile, new File(zipFileName));
+    }
+
+    public byte[] binaryStringToBytes(byte[] array) {
+        final int length = array.length;
+        int sizeOfArray = length / 8;
+        if (length % 8 != 0) {
+            sizeOfArray++;
+        }
+        byte[] data = new byte[sizeOfArray];
+        for (int i = 0; i < length; i++) {
+            byte c = array[i];
+            if (c == '1') {
+                data[i >> 3] |= 0x80 >> (i & 0x7);
+            } else if (c != '0') {
+                throw new IllegalArgumentException("Invalid char in binary string");
+            }
+        }
+        return data;
     }
 }

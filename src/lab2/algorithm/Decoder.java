@@ -3,9 +3,11 @@ package lab2.algorithm;
 import lab2.model.Node;
 
 public class Decoder {
-    @SuppressWarnings("ConstantConditions")
-    public String decode(String codedStr, Node root) {
-        var array = codedStr.getBytes();
+
+    public String decode(final byte[] array, final Node root) {
+        if (array == null || root == null) {
+            return "";
+        }
         var builder = new StringBuilder();
         Node currentNode = root;
         for (var i : array) {
@@ -14,7 +16,8 @@ public class Decoder {
             } else {
                 currentNode = currentNode.getRight();
             }
-            if (currentNode != null && currentNode.getLeft() == null && currentNode.getRight() == null) {
+            if(currentNode == null){throw new IllegalArgumentException("Bad tree of codes");}
+            if (currentNode.getLeft() == null && currentNode.getRight() == null) {
                 char value = (char) currentNode.getValue();
                 builder.append(value);
                 currentNode = root;

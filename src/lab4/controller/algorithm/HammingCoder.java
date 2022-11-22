@@ -9,7 +9,8 @@ public class HammingCoder  {
 
         byte[] bytes = code.getBytes();
         System.out.println(bytes.length);
-        var encoding = encoding(bytes);
+        var coder = new HammingCoder();
+        var encoding = coder.createCode(bytes);
         System.out.println(new String(encoding, StandardCharsets.UTF_8));
         var decoder = new HummingDecoder(new HummingCodeFixer(new Validator()));
         changeSign(encoding, 3);
@@ -18,7 +19,7 @@ public class HammingCoder  {
         System.out.println(new String(decoded, StandardCharsets.UTF_8));
     }
 
-    public static byte[] encoding(byte[] message) {
+    public byte[] createCode(byte[] message) {
         int messageLength = message.length;
         int amountOfParityBits = calculateParity(messageLength);
         int hammingMessageLength = messageLength + amountOfParityBits;

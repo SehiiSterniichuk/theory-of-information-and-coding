@@ -12,7 +12,7 @@ public class HammingCoder  {
         var coder = new HammingCoder();
         var encoding = coder.createCode(bytes);
         System.out.println(new String(encoding, StandardCharsets.UTF_8));
-        var decoder = new HummingDecoder(new HummingCodeFixer(new Validator()));
+        var decoder = new HammingDecoder(new HammingCodeFixer(2));
         changeSign(encoding, 3);
         System.out.println(new String(encoding, StandardCharsets.UTF_8));
         var decoded = decoder.decoding(encoding);

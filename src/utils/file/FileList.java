@@ -1,7 +1,7 @@
 package utils.file;
 
 
-public enum Files {
+public enum FileList {
 
     CODED_OUTPUT_FILE_NAME("Compressed"),
     CODED_OUTPUT_FILE_AS_TEXT_NAME("CompressedAsText.txt"),
@@ -15,7 +15,7 @@ public enum Files {
 
     private final String path;
 
-    Files(String path) {
+    FileList(String path) {
         this.path = path;
     }
 
@@ -28,7 +28,7 @@ public enum Files {
         return getPath();
     }
 
-    public String add(Files file) {
+    public String add(FileList file) {
         return path + file.path;
     }
 }

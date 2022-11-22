@@ -8,6 +8,7 @@ import utils.AlgorithmCoder;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,7 @@ public class Coder {
     }
 
     public byte[] getCodedText(){
-        return codedText;
+        return Arrays.copyOf(codedText, codedText.length);
     }
 
     public StringAnalysisManager getAnalysisManager() {

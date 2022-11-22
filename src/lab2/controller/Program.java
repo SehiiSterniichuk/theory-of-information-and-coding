@@ -7,14 +7,11 @@ import lab2.view.FileSize;
 import lab2.view.Result;
 import utils.AlgorithmCoder;
 import utils.file.FileGetter;
-import utils.file.FileManager;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.List;
-
-import static utils.file.Files.*;
 
 public class Program {
 
@@ -28,20 +25,15 @@ public class Program {
         int length = data.length;
         codedText = coder.getCodedText();
 
-        var fileManager = new FileManager();
-        File zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_FOLDER + "" + ZIP_FILE_NAME);
-        File compressedFile = new File(PATH_TO_FOLDER + "" + CODED_OUTPUT_FILE_NAME);
-        fileManager.byteWrite(compressedFile, fileManager.binaryStringToBytes(codedText));
-        fileManager.write(PATH_TO_FOLDER + "" + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
-
         var decoder = new Decoder();
         String decodedText = decoder.decode(codedText, coder.getRoot());
-        fileManager.write(PATH_TO_FOLDER + "" + DECODED_OUTPUT_FILE_NAME, decodedText);
 
-        result = makeResult(inputFile, compressedFile, zipFile, length, coder, algorithmCoder.getName());
+        var resultSaver = new ResultSaver(inputFile, codedText, decodedText);
+        result = makeResult(inputFile, resultSaver, length, coder, algorithmCoder.getName());
         this.symbols = coder.getAnalysisManager().getSymbols();
         symbols.sort(Comparator.comparingDouble(Symbol::probability).reversed());
     }
+
 
     public void printCodes() {
         for (var s : symbols) {
@@ -51,6 +43,11 @@ public class Program {
 
     public String getCodedText() {
         return new String(codedText, StandardCharsets.UTF_8);
+    }
+
+    private Result makeResult(File inputFile, ResultSaver saver, int lengthOfInput,
+                              Coder coder, String methodName) {
+        return makeResult(inputFile, saver.compressedFile, saver.zipFile, lengthOfInput, coder, methodName);
     }
 
     private Result makeResult(File inputFile, File compressedFile, File zip, int lengthOfInput,

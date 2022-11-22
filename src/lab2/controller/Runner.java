@@ -11,7 +11,7 @@ import utils.file.FileManager;
 import java.io.File;
 import java.util.*;
 
-import static utils.file.Files.*;
+import static utils.file.FileList.*;
 
 public class Runner {
 

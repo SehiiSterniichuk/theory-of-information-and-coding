@@ -3,7 +3,7 @@ package lab4.controller.algorithm;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public record HummingDecoder(HummingCodeFixer fixer) {
+public record HammingDecoder(HammingCodeFixer fixer) {
 
     public byte[] decoding(byte[] encodedMessage) {
         fixer.fixError(encodedMessage);

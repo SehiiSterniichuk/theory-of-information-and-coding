@@ -8,6 +8,7 @@ public enum FileList {
     DECODED_OUTPUT_FILE_NAME("Decompressed.txt"),
     ZIP_FILE_NAME("Zip.zip"),
     PATH_TO_FOLDER("src/resources/"),
+    PATH_TO_RESULT("src/resources/result/"),
     TEXT_FORMAT(".txt"),
     CONSOLE_FILE_NAME("Console.txt"),
     PATH_TO_TEXT_FOLDER(PATH_TO_FOLDER + "casual/eng/"),

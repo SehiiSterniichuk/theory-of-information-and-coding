@@ -32,7 +32,7 @@ public class Runner {
                     file = converter.getFile();
                 } else {
                     file = (new FileManager()).
-                            write(PATH_TO_FOLDER.add(CONSOLE_FILE_NAME), selector.getMessage());
+                            write(PATH_TO_RESULT.add(CONSOLE_FILE_NAME), selector.getMessage());
                 }
                 var program = new Program(file, coder);
                 if (selector.isConsole()) System.out.println("Coded string:\t" + program.getCodedText());

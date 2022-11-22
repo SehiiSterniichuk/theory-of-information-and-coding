@@ -57,7 +57,7 @@ public class FileManager {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Archiving of file was failed");
+            throw new RuntimeException("Archiving of file was failed", e);
         }
         return zipFileName;
     }

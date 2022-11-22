@@ -12,10 +12,10 @@ public class ResultSaver {
 
     public ResultSaver(File inputFile, byte[] codedText, byte[] decodedText) {
         var fileManager = new FileManager();
-        zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_FOLDER + "" + ZIP_FILE_NAME);
-        compressedFile = new File(PATH_TO_FOLDER + "" + CODED_OUTPUT_FILE_NAME);
+        zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_RESULT + "" + ZIP_FILE_NAME);
+        compressedFile = new File(PATH_TO_RESULT + "" + CODED_OUTPUT_FILE_NAME);
         fileManager.byteWrite(compressedFile, fileManager.binaryStringToBytes(codedText));
-        fileManager.write(PATH_TO_FOLDER + "" + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
-        fileManager.write(PATH_TO_FOLDER + "" + DECODED_OUTPUT_FILE_NAME, decodedText);
+        fileManager.write(PATH_TO_RESULT + "" + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
+        fileManager.write(PATH_TO_RESULT + "" + DECODED_OUTPUT_FILE_NAME, decodedText);
     }
 }

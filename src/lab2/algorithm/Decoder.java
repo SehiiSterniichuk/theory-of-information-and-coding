@@ -2,27 +2,32 @@ package lab2.algorithm;
 
 import lab2.model.Node;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 public class Decoder {
 
-    public String decode(final byte[] array, final Node root) {
+    public byte[] decode(final byte[] array, final Node root) {
         if (array == null || root == null) {
-            return "";
+            return new byte[]{};
         }
-        var builder = new StringBuilder();
         Node currentNode = root;
-        for (var i : array) {
-            if (i == '0') {
-                currentNode = currentNode.getLeft();
-            } else {
-                currentNode = currentNode.getRight();
+        try(var builder = new ByteArrayOutputStream()){
+            for (var i : array) {
+                if (i == '0') {
+                    currentNode = currentNode.getLeft();
+                } else {
+                    currentNode = currentNode.getRight();
+                }
+                if(currentNode == null){throw new IllegalArgumentException("Bad tree of codes");}
+                if (currentNode.getLeft() == null && currentNode.getRight() == null) {
+                    builder.write(currentNode.getValue());
+                    currentNode = root;
+                }
             }
-            if(currentNode == null){throw new IllegalArgumentException("Bad tree of codes");}
-            if (currentNode.getLeft() == null && currentNode.getRight() == null) {
-                char value = (char) currentNode.getValue();
-                builder.append(value);
-                currentNode = root;
-            }
+            return builder.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return builder.toString();
     }
 }

@@ -2,7 +2,6 @@ package lab4.controller;
 
 import lab2.algorithm.Coder;
 import lab2.algorithm.Decoder;
-import lab2.controller.ResultSaver;
 import lab2.model.Node;
 import lab2.view.FileSize;
 import lab4.controller.algorithm.HammingCodeFixer;
@@ -14,47 +13,54 @@ import utils.ByteUtil;
 import utils.file.FileGetter;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Program {
 
-    private final byte[] codedText;
     private final Node root;
     private final File inputFile;
-    final private List<Integer> insertedErrors = new LinkedList<>();
+    private final List<Integer> insertedErrors = new LinkedList<>();
+    private final byte[] inputData;
+    private final byte[] algorithmCoding;
+    private final byte[] hammingCoding;
 
     public Program(final File inputFile, final AlgorithmCoder algorithmCoder) {
         this.inputFile = inputFile;
-        var data = FileGetter.getFileAsByteArray(inputFile);
-        var coder = new Coder(data, algorithmCoder);
+        this.inputData = FileGetter.getFileAsByteArray(inputFile);
+        var coder = new Coder(inputData, algorithmCoder);
         this.root = coder.getRoot();
         var hummingCoder = new HammingCoder();
-        codedText = hummingCoder.createCode(coder.getCodedText());
+        this.algorithmCoding = coder.getCodedText();
+        this.hammingCoding = hummingCoder.createCode(algorithmCoding);
     }
 
     public void makeErrorInIndex(int i){
-        if(i >= codedText.length || i <= 0){
+        if(i >= hammingCoding.length || i <= 0){
             final int old = i;
             i = 1;
             System.out.println("You can't modify index " + old + ". Instead index will be equal: " + i);
         }
         insertedErrors.add(i);
-        ByteUtil.changeSign(codedText, i);
+        ByteUtil.changeSign(hammingCoding, i);
     }
 
     public ResultLab4 decode(int attemptsToFix){
         var hammingDecoder = new HammingDecoder(new HammingCodeFixer(attemptsToFix));
-        byte[] hammingDecoding = hammingDecoder.decoding(codedText);
-        String decoded = (new Decoder()).decode(hammingDecoding, root);
-        new ResultSaver(inputFile, codedText, decoded);
-        return makeResult(hammingDecoder);
+        byte[] hammingDecoding = hammingDecoder.decoding(hammingCoding);
+        byte[] decoded = (new Decoder()).decode(hammingDecoding, root);
+        return makeResult(hammingDecoder,hammingDecoding, Arrays.equals(inputData, decoded));
     }
 
-    private ResultLab4 makeResult(HammingDecoder decoder){
+    private ResultLab4 makeResult(HammingDecoder decoder,
+                                  byte[] hammingDecoding,
+                                  boolean isValid){
         return new ResultLab4(inputFile.getName(),
                 new FileSize(inputFile.length()),
+                algorithmCoding, hammingCoding, hammingDecoding,
                 decoder.fixer().isValid(),
+                isValid,
                 decoder.fixer().getErrors(),
                 getInsertedErrors());
     }

@@ -10,10 +10,6 @@ public class ResultSaver {
     public final File zipFile;
     public final File compressedFile;
 
-    public ResultSaver(File inputFile, byte[] codedText, String decodedText) {
-        this(inputFile, codedText, decodedText.getBytes());
-    }
-
     public ResultSaver(File inputFile, byte[] codedText, byte[] decodedText) {
         var fileManager = new FileManager();
         zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_FOLDER + "" + ZIP_FILE_NAME);

@@ -26,7 +26,7 @@ public class Program {
         codedText = coder.getCodedText();
 
         var decoder = new Decoder();
-        String decodedText = decoder.decode(codedText, coder.getRoot());
+        var decodedText = decoder.decode(codedText, coder.getRoot());
 
         var resultSaver = new ResultSaver(inputFile, codedText, decodedText);
         result = makeResult(inputFile, resultSaver, length, coder, algorithmCoder.getName());

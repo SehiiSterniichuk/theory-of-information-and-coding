@@ -13,14 +13,9 @@ import java.io.File;
 import java.util.Comparator;
 import java.util.List;
 
-public class Program {
+import static utils.file.Files.*;
 
-    private static final String CODED_OUTPUT_FILE_NAME = "Compressed";
-    private static final String CODED_OUTPUT_FILE_AS_TEXT_NAME = "CompressedAsText.txt";
-    private static final String DECODED_OUTPUT_FILE_NAME = "Decompressed.txt";
-    private static final String ZIP_FILE_NAME = "Zip.zip";
-    private static final String PATH_TO_FOLDER = "src/resources/";
-    private static final String TEXT_FORMAT = ".txt";
+public class Program {
 
     private final Result result;
     private final List<Symbol> symbols;
@@ -29,7 +24,7 @@ public class Program {
     public Program(File inputFile, AlgorithmCoder algorithmCoder) {
         int length;
         Coder coder;
-        if (inputFile.getName().contains(TEXT_FORMAT)) {
+        if (inputFile.getName().contains(TEXT_FORMAT.getPath())) {
             String inputText = FileGetter.getFileAsString(inputFile);
             coder = new Coder(inputText, algorithmCoder);
             length = inputText.length();
@@ -40,13 +35,13 @@ public class Program {
         }
         codedText = coder.getCodedText();
         FileManager fileManager = new FileManager();
-        File zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_FOLDER + ZIP_FILE_NAME);
-        File compressedFile = new File(PATH_TO_FOLDER + CODED_OUTPUT_FILE_NAME);
+        File zipFile = fileManager.archiveFileToZip(inputFile, PATH_TO_FOLDER + "" + ZIP_FILE_NAME);
+        File compressedFile = new File(PATH_TO_FOLDER + "" + CODED_OUTPUT_FILE_NAME);
         fileManager.byteWrite(compressedFile, binaryStringToBytes(codedText));
-        fileManager.write(PATH_TO_FOLDER + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
+        fileManager.write(PATH_TO_FOLDER + "" + CODED_OUTPUT_FILE_AS_TEXT_NAME, codedText);
         var decoder = new Decoder();
         String decodedText = decoder.decode(codedText, coder.getRoot());
-        fileManager.write(PATH_TO_FOLDER + DECODED_OUTPUT_FILE_NAME, decodedText);
+        fileManager.write(PATH_TO_FOLDER + "" + DECODED_OUTPUT_FILE_NAME, decodedText);
         result = makeResult(inputFile, compressedFile, zipFile, length, coder, algorithmCoder.getName());
         this.symbols = coder.getAnalysisManager().getSymbols();
         symbols.sort(Comparator.comparingDouble(Symbol::probability).reversed());

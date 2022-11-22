@@ -1,4 +1,4 @@
-package lab4.algorithm;
+package lab4.controller.algorithm;
 
 import static utils.ByteUtil.changeSign;
 

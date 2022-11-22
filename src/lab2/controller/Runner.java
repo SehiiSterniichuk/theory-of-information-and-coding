@@ -11,12 +11,9 @@ import utils.file.FileManager;
 import java.io.File;
 import java.util.*;
 
-public class Runner {
-    private static final String PATH_TO_FOLDER = "src/resources/";
-    private static final String CONSOLE_FILE_NAME = "Console.txt";
-    private static final String PATH_TO_TEXT_FOLDER = PATH_TO_FOLDER + "casual/eng/";
-    private static final String PATH_TO_MEDIA_FOLDER = PATH_TO_FOLDER + "differentTypes/";
+import static utils.file.Files.*;
 
+public class Runner {
 
     public static void main(String[] args) {
         String helloMessage = "Lab #2 has started work\nShannon–Fano coding";
@@ -24,7 +21,7 @@ public class Runner {
         runner.work(helloMessage, new ShannonFanoCoder());
     }
 
-    public void work(String helloMessage, AlgorithmCoder coder){
+    public void work(String helloMessage, AlgorithmCoder coder) {
         System.out.println(helloMessage);
         var selector = new OptionSelectorLab2();
         File file;
@@ -35,7 +32,7 @@ public class Runner {
                     file = converter.getFile();
                 } else {
                     file = (new FileManager()).
-                            write(PATH_TO_FOLDER + CONSOLE_FILE_NAME, selector.getMessage());
+                            write(PATH_TO_FOLDER.add(CONSOLE_FILE_NAME), selector.getMessage());
                 }
                 var program = new Program(file, coder);
                 if (selector.isConsole()) System.out.println("Coded string:\t" + program.getCodedText());
@@ -48,8 +45,8 @@ public class Runner {
     }
 
     static void ranLab(AlgorithmCoder coder) {
-        final var listOfTextFiles = FileGetter.getFiles(PATH_TO_TEXT_FOLDER);
-        final var listOfMediaFiles = FileGetter.getFiles(PATH_TO_MEDIA_FOLDER);
+        final var listOfTextFiles = FileGetter.getFiles(PATH_TO_TEXT_FOLDER.getPath());
+        final var listOfMediaFiles = FileGetter.getFiles(PATH_TO_MEDIA_FOLDER.getPath());
         System.out.println("\nText length analiz:");
         analizListOfFiles(listOfTextFiles, coder);
         System.out.println("\nDifferent types...");

@@ -16,8 +16,6 @@ public class OptionSelectorLab4 {
         BY_INDEX, BY_NUMBER
     }
 
-    private static final String HELLO_MESSAGE_LAB_4 = "Lab #4 has started to work";
-
     public Mode selectMode(){
         final String selectMode = """
                 Please, select mode of program

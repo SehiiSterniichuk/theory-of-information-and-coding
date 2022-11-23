@@ -14,11 +14,13 @@ public class FileGetter {
     public FileGetter(String fileName) {
         this.fileName = fileName;
         file = new File(pathToDataFolder + fileName);
+        file.getParentFile().mkdirs();
         if (!file.exists()) {
-            throw new RuntimeException("File doesn't exist");
-        }
-        if (!file.isFile()) {
-            throw new RuntimeException("It is not a correct file");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

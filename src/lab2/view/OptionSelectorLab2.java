@@ -4,10 +4,6 @@ import java.util.Scanner;
 
 public class OptionSelectorLab2 {
 
-    public enum Option {
-        FILE, CONSOLE, LAB
-    }
-
     private final Option option;
 
     private String message;

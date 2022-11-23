@@ -1,5 +1,7 @@
 package lab4.view;
 
+import lab2.view.Option;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,19 +9,13 @@ import java.util.Scanner;
 public class OptionSelectorLab4 {
 
     private String message;
-    private Mode modeOption;
-    private ErrorsInput errorsInputOption;
+    private Option modeOption;
+    private ErrorInput errorInputOption;
     private int number;
 
-    enum Mode {
-        CONSOLE, FILE, LENGTH_ANALIZ
-    }
 
-    enum ErrorsInput {
-        BY_INDEX, BY_NUMBER
-    }
 
-    public Mode selectMode() {
+    public Option selectMode() {
         final String selectMode = """
                 Please, select mode of program
                 Type 0 if you want to input your message from console
@@ -30,39 +26,42 @@ public class OptionSelectorLab4 {
         try (Scanner sc = new Scanner(System.in)) {
             String mode = sc.nextLine();
             if (mode.contains("0")) {
-                modeOption = Mode.CONSOLE;
-                System.out.println("Enter your message: ");
+                modeOption = Option.CONSOLE;
+                System.out.print("Enter your message: ");
             } else if (mode.contains("1")) {
-                modeOption = Mode.FILE;
+                modeOption = Option.FILE;
                 System.out.println("Enter your path to your file: ");
             } else {
-                modeOption = Mode.LENGTH_ANALIZ;
+                modeOption = Option.LAB;
+                return modeOption;
             }
-            if (modeOption != Mode.LENGTH_ANALIZ) {
-                message = sc.nextLine();
-            }
+            message = sc.nextLine();
+            System.out.println("message = " + message);
         }
         return modeOption;
     }
 
-    public ErrorsInput selectWayOfErrorInput() {
+    public ErrorInput selectWayOfErrorInput() {
         final String selectWay = """
                 Enter 0 if you want to set error by index
-                Enter any other symbol if you want to select number of random errors
-                """;
+                Enter 1 if you want to select number of random errors
+                Enter any other symbol if you don't want to make errors""";
         System.out.print(selectWay + "\nEnter: ");
         try (Scanner sc = new Scanner(System.in)) {
             final String choice = sc.nextLine();
             if (choice.contains("0")) {
-                errorsInputOption = ErrorsInput.BY_INDEX;
+                errorInputOption = ErrorInput.BY_INDEX;
                 System.out.print("How many errors do you want to enter?\nEnter: ");
-            } else {
-                errorsInputOption = ErrorsInput.BY_NUMBER;
+            } else if(choice.equals("1")){
+                errorInputOption = ErrorInput.BY_NUMBER;
                 System.out.print("Number: ");
+            }else {
+                errorInputOption = ErrorInput.NONE;
+                return errorInputOption;
             }
             this.number = parseInt(sc.nextLine(), 1);
         }
-        return errorsInputOption;
+        return errorInputOption;
     }
 
     public int inputNumberAttempts(){
@@ -98,8 +97,8 @@ public class OptionSelectorLab4 {
         return message;
     }
 
-    public ErrorsInput getErrorsInputOption() {
-        return errorsInputOption;
+    public ErrorInput getErrorsInputOption() {
+        return errorInputOption;
     }
 
     public int getNumber() {

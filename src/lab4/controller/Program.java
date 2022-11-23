@@ -13,6 +13,7 @@ import utils.ByteUtil;
 import utils.file.FileGetter;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,5 +68,9 @@ public class Program {
 
     public List<Integer> getInsertedErrors() {
         return new LinkedList<>(insertedErrors);
+    }
+
+    public String getHammingCodingAsString() {
+        return new String(hammingCoding, StandardCharsets.UTF_8);
     }
 }

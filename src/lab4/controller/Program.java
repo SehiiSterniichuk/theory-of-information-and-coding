@@ -47,6 +47,21 @@ public class Program {
         ByteUtil.changeSign(hammingCoding, i);
     }
 
+    private static int random(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
+
+    public void makeRandomError(){
+        makeErrorInIndex(random(1, hammingCoding.length));
+    }
+
+    public void makeRandomErrors(int number){
+        for (int i = 0; i < number; i++) {
+            makeRandomError();
+        }
+    }
+
+
     public ResultLab4 decode(int attemptsToFix){
         var hammingDecoder = new HammingDecoder(new HammingCodeFixer(attemptsToFix));
         byte[] hammingDecoding = hammingDecoder.decoding(hammingCoding);

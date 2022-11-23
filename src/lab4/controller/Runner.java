@@ -3,15 +3,18 @@ package lab4.controller;
 import lab3.algorithm.HuffmanCoder;
 import lab4.view.ErrorInput;
 import lab4.view.OptionSelectorLab4;
+import lab4.view.ResultLab4;
+import lab4.view.ResultTableLab4;
 import utils.file.FileGetter;
 import utils.file.FileManager;
 
 import java.io.File;
-import java.io.RandomAccessFile;
-import java.util.Random;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
-import static utils.file.FileList.CONSOLE_FILE_NAME;
-import static utils.file.FileList.PATH_TO_RESULT;
+import static utils.file.FileList.*;
 
 public class Runner {
     private static final String HELLO_MESSAGE_LAB_4 = "Lab #4 has started to work";
@@ -37,16 +40,13 @@ public class Runner {
                 switch (errorInput) {
                     case BY_INDEX -> {
                         var list = selector.inputList(selector.getNumber());
-                        for(var i : list){
+                        for (var i : list) {
                             program.makeErrorInIndex(i);
                         }
                     }
                     case BY_NUMBER -> {
                         var number = selector.getNumber();
-                        var rand = new Random();
-                        for (int i = 0; i < number; i++) {
-                            program.makeErrorInIndex(rand.ints(1, hammingCodingAsString.length()).findFirst().getAsInt());
-                        }
+                        program.makeRandomErrors(number);
                     }
                 }
                 var attempts = selector.inputNumberAttempts();
@@ -57,8 +57,22 @@ public class Runner {
         }
     }
 
-    private static void ranLab(){
-
+    private static void ranLab() {
+        List<ResultLab4> results = new LinkedList<>();
+        var files = Arrays.stream(FileGetter.getFiles(PATH_TO_TEXT_FOLDER.getPath()))
+                        .sorted(Comparator.comparingLong(File::length)).toList();
+        final int attempts = 2;
+        final int maxNumberOfErrors = 3;
+        var coder = new HuffmanCoder();
+        for (var file : files) {
+            for (int i = 1; i <= maxNumberOfErrors; i++) {
+                var program = new Program(file, coder);
+                program.makeRandomErrors(i);
+                ResultLab4 result = program.decode(attempts);
+                results.add(result);
+            }
+        }
+        var table = new ResultTableLab4(results);
+        table.print();
     }
-
 }

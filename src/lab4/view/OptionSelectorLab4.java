@@ -9,10 +9,7 @@ import java.util.Scanner;
 public class OptionSelectorLab4 {
 
     private String message;
-    private Option modeOption;
-    private ErrorInput errorInputOption;
     private int number;
-
 
 
     public Option selectMode() {
@@ -23,21 +20,21 @@ public class OptionSelectorLab4 {
                 Type any other symbol if you want to analyze files with different length and errors number
                 """;
         System.out.print(selectMode + "\nEnter: ");
-        try (Scanner sc = new Scanner(System.in)) {
-            String mode = sc.nextLine();
-            if (mode.contains("0")) {
-                modeOption = Option.CONSOLE;
-                System.out.print("Enter your message: ");
-            } else if (mode.contains("1")) {
-                modeOption = Option.FILE;
-                System.out.println("Enter your path to your file: ");
-            } else {
-                modeOption = Option.LAB;
-                return modeOption;
-            }
-            message = sc.nextLine();
-            System.out.println("message = " + message);
+        Scanner sc = new Scanner(System.in);
+        String mode = sc.nextLine();
+        Option modeOption;
+        if (mode.contains("0")) {
+            modeOption = Option.CONSOLE;
+            System.out.print("Enter your message: ");
+        } else if (mode.contains("1")) {
+            modeOption = Option.FILE;
+            System.out.println("Enter your path to your file: ");
+        } else {
+            modeOption = Option.LAB;
+            return modeOption;
         }
+        message = sc.nextLine();
+        System.out.println("message = " + message);
         return modeOption;
     }
 
@@ -47,29 +44,28 @@ public class OptionSelectorLab4 {
                 Enter 1 if you want to select number of random errors
                 Enter any other symbol if you don't want to make errors""";
         System.out.print(selectWay + "\nEnter: ");
-        try (Scanner sc = new Scanner(System.in)) {
-            final String choice = sc.nextLine();
-            if (choice.contains("0")) {
-                errorInputOption = ErrorInput.BY_INDEX;
-                System.out.print("How many errors do you want to enter?\nEnter: ");
-            } else if(choice.equals("1")){
-                errorInputOption = ErrorInput.BY_NUMBER;
-                System.out.print("Number: ");
-            }else {
-                errorInputOption = ErrorInput.NONE;
-                return errorInputOption;
-            }
-            this.number = parseInt(sc.nextLine(), 1);
+        Scanner sc = new Scanner(System.in);
+        final String choice = sc.nextLine();
+        ErrorInput errorInputOption;
+        if (choice.contains("0")) {
+            errorInputOption = ErrorInput.BY_INDEX;
+            System.out.print("How many errors do you want to enter?\nEnter: ");
+        } else if (choice.equals("1")) {
+            errorInputOption = ErrorInput.BY_NUMBER;
+            System.out.print("Number: ");
+        } else {
+            errorInputOption = ErrorInput.NONE;
+            return errorInputOption;
         }
+        this.number = parseInt(sc.nextLine(), 1);
         return errorInputOption;
     }
 
-    public int inputNumberAttempts(){
+    public int inputNumberAttempts() {
         System.out.println("How many attempts of fixing should Hamming do?");
-        System.out.print("Enter");
-        try (Scanner sc = new Scanner(System.in)) {
-            return parseInt(sc.nextLine(), 2);
-        }
+        System.out.print("Enter: ");
+        Scanner sc = new Scanner(System.in);
+        return parseInt(sc.nextLine(), 2);
     }
 
     private static int parseInt(final String line, final int defaultValue) {
@@ -83,22 +79,18 @@ public class OptionSelectorLab4 {
 
     public List<Integer> inputList(int number) {
         List<Integer> list = new LinkedList<>();
-        try (Scanner sc = new Scanner(System.in)) {
-            for (int i = 1; i <= number; i++) {
-                System.out.print("Number" + i + ": ");
-                var value = parseInt(sc.nextLine(), 1);
-                list.add(value);
-            }
+        Scanner sc = new Scanner(System.in);
+
+        for (int i = 1; i <= number; i++) {
+            System.out.printf("Enter[%s] = ", i);
+            var value = parseInt(sc.nextLine(), 1);
+            list.add(value);
         }
         return list;
     }
 
     public String getMessage() {
         return message;
-    }
-
-    public ErrorInput getErrorsInputOption() {
-        return errorInputOption;
     }
 
     public int getNumber() {

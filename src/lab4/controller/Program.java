@@ -37,8 +37,8 @@ public class Program {
         this.hammingCoding = hummingCoder.createCode(algorithmCoding);
     }
 
-    public void makeErrorInIndex(int i){
-        if(i >= hammingCoding.length || i <= 0){
+    public void makeErrorInIndex(int i) {
+        if (i >= hammingCoding.length || i <= 0) {
             final int old = i;
             i = 1;
             System.out.println("You can't modify index " + old + ". Instead index will be equal: " + i);
@@ -47,31 +47,33 @@ public class Program {
         ByteUtil.changeSign(hammingCoding, i);
     }
 
-    private static int random(int min, int max) {
+    private static int random(int max) {
+        int min = 1;
         return (int) ((Math.random() * (max - min)) + min);
     }
 
-    public void makeRandomError(){
-        makeErrorInIndex(random(1, hammingCoding.length));
+
+    public void makeRandomError() {
+        makeErrorInIndex(random(hammingCoding.length));
     }
 
-    public void makeRandomErrors(int number){
+    public void makeRandomErrors(int number) {
         for (int i = 0; i < number; i++) {
             makeRandomError();
         }
     }
 
 
-    public ResultLab4 decode(int attemptsToFix){
+    public ResultLab4 decode(int attemptsToFix) {
         var hammingDecoder = new HammingDecoder(new HammingCodeFixer(attemptsToFix));
         byte[] hammingDecoding = hammingDecoder.decoding(hammingCoding);
         byte[] decoded = (new Decoder()).decode(hammingDecoding, root);
-        return makeResult(hammingDecoder,hammingDecoding, Arrays.equals(inputData, decoded));
+        return makeResult(hammingDecoder, hammingDecoding, Arrays.equals(inputData, decoded));
     }
 
     private ResultLab4 makeResult(HammingDecoder decoder,
                                   byte[] hammingDecoding,
-                                  boolean isValid){
+                                  boolean isValid) {
         return new ResultLab4(inputFile.getName(),
                 new FileSize(inputFile.length()),
                 algorithmCoding, hammingCoding, hammingDecoding,

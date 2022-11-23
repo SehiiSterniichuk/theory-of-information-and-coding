@@ -27,7 +27,10 @@ public class HammingCodeFixer {
         int errorIndex;
         for (int i = 0; i < attemptsToFix && !isValid; i++) {
             errorIndex = validator.getErrorPosition();
-            if(errorIndex >= message.length || errorIndex <= 1){return;}
+            if (errorIndex >= message.length || errorIndex <= 1) {
+                errors.add(-1);
+                return;
+            }
             changeSign(message, errorIndex);
             errors.add(errorIndex);
             isValid = validator.isValid(message);

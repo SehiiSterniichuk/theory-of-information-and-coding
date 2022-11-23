@@ -52,7 +52,6 @@ public class Program {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
-
     public void makeRandomError() {
         makeErrorInIndex(random(hammingCoding.length));
     }
@@ -62,7 +61,6 @@ public class Program {
             makeRandomError();
         }
     }
-
 
     public ResultLab4 decode(int attemptsToFix) {
         var hammingDecoder = new HammingDecoder(new HammingCodeFixer(attemptsToFix));

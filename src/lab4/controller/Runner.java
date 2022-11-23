@@ -34,8 +34,7 @@ public class Runner {
                             write(PATH_TO_RESULT.add(CONSOLE_FILE_NAME), selector.getMessage());
                 }
                 var program = new Program(file, new HuffmanCoder());
-                String hammingCodingAsString = program.getHammingCodingAsString();
-                System.out.println("Hamming coding: " + hammingCodingAsString);
+                System.out.println("Hamming coding: " + program.getHammingCodingAsString());
                 ErrorInput errorInput = selector.selectWayOfErrorInput();
                 switch (errorInput) {
                     case BY_INDEX -> {
@@ -43,14 +42,14 @@ public class Runner {
                         for (var i : list) {
                             program.makeErrorInIndex(i);
                         }
+                        System.out.println("Edited coding: " + program.getHammingCodingAsString());
                     }
                     case BY_NUMBER -> {
                         var number = selector.getNumber();
                         program.makeRandomErrors(number);
                     }
                 }
-                var attempts = selector.inputNumberAttempts();
-                var result = program.decode(attempts);
+                var result = program.decode(2);
                 System.out.println(result);
             }
             case LAB -> ranLab();

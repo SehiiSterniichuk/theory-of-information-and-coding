@@ -11,7 +11,6 @@ public class OptionSelectorLab4 {
     private String message;
     private int number;
 
-
     public Option selectMode() {
         final String selectMode = """
                 Please, select mode of program
@@ -59,13 +58,6 @@ public class OptionSelectorLab4 {
         }
         this.number = parseInt(sc.nextLine(), 1);
         return errorInputOption;
-    }
-
-    public int inputNumberAttempts() {
-        System.out.println("How many attempts of fixing should Hamming do?");
-        System.out.print("Enter: ");
-        Scanner sc = new Scanner(System.in);
-        return parseInt(sc.nextLine(), 2);
     }
 
     private static int parseInt(final String line, final int defaultValue) {

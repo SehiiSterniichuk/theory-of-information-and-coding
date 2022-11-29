@@ -26,10 +26,10 @@ public class Runner {
         File file;
         switch (mode) {
             case FILE, CONSOLE -> {
-                if (!mode.isConsole()) {
+                if (!mode.isConsole()) {//reads selected file
                     var converter = new FileGetter(selector.getMessage());
                     file = converter.getFile();
-                } else {
+                } else {//reads console input and writes this in the file.
                     file = (new FileManager()).
                             write(PATH_TO_RESULT.add(CONSOLE_FILE_NAME), selector.getMessage());
                 }

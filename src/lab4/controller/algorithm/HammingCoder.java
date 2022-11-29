@@ -1,23 +1,8 @@
 package lab4.controller.algorithm;
 
-import java.nio.charset.StandardCharsets;
 import static utils.ByteUtil.*;
 
 public class HammingCoder  {
-    public static void main(String[] args) {
-        var code  = "101010";
-
-        byte[] bytes = code.getBytes();
-        System.out.println(bytes.length);
-        var coder = new HammingCoder();
-        var encoding = coder.createCode(bytes);
-        System.out.println(new String(encoding, StandardCharsets.UTF_8));
-        var decoder = new HammingDecoder(new HammingCodeFixer(2));
-        changeSign(encoding, 3);
-        System.out.println(new String(encoding, StandardCharsets.UTF_8));
-        var decoded = decoder.decoding(encoding);
-        System.out.println(new String(decoded, StandardCharsets.UTF_8));
-    }
 
     public byte[] createCode(byte[] message) {
         int messageLength = message.length;
@@ -29,9 +14,8 @@ public class HammingCoder  {
     }
 
     private static byte[] generateEmptyHammingCode(int hammingMessageLength, byte[] message) {
-        int temp = 0;
-        int temp2;
-        int j = 0;
+        int temp, temp2, j;
+        temp = j = 0;
 
         byte[] hammingMessageDataArray = new byte[hammingMessageLength + 1]; //+1 because starts with 1
         for (int i = 1; i <= hammingMessageLength; i++) {
@@ -66,5 +50,13 @@ public class HammingCoder  {
                 }
             }
         }
+    }
+
+    public static int calculateParity(int m) {
+        int r = 0;
+        while (!(m + r + 1 <= Math.pow(2, r))) {
+            r++;
+        }
+        return r;
     }
 }

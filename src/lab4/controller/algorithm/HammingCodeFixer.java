@@ -34,9 +34,6 @@ public class HammingCodeFixer {
             changeSign(message, errorIndex);
             errors.add(errorIndex);
             isValid = validator.isValid(message);
-            if (isValid) {
-                return;
-            }
         }
     }
 

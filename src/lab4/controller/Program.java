@@ -33,7 +33,7 @@ public class Program {
         var coder = new Coder(inputData, algorithmCoder);
         this.root = coder.getRoot();
         var hummingCoder = new HammingCoder();
-        this.algorithmCoding = coder.getCodedText();
+        this.algorithmCoding = coder.getCodedText();//Код Хаффмена або Шанно-Фано
         this.hammingCoding = hummingCoder.createCode(algorithmCoding);
     }
 
@@ -65,7 +65,7 @@ public class Program {
     public ResultLab4 decode(int attemptsToFix) {
         var hammingDecoder = new HammingDecoder(new HammingCodeFixer(attemptsToFix));
         byte[] hammingDecoding = hammingDecoder.decoding(hammingCoding);
-        byte[] decoded = (new Decoder()).decode(hammingDecoding, root);
+        byte[] decoded = (new Decoder()).decode(hammingDecoding, root);//Декодоване повідомлення для людини потрібне щоб порівняти з вхідним
         return makeResult(hammingDecoder, hammingDecoding, Arrays.equals(inputData, decoded));
     }
 
@@ -75,7 +75,6 @@ public class Program {
         return new ResultLab4(inputFile.getName(),
                 new FileSize(inputFile.length()),
                 algorithmCoding, hammingCoding, hammingDecoding,
-                decoder.fixer().isValid(),
                 isValid,
                 decoder.fixer().getErrors(),
                 getInsertedErrors());

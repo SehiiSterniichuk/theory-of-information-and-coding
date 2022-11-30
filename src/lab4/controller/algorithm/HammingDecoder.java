@@ -10,7 +10,7 @@ public record HammingDecoder(HammingCodeFixer fixer) {
         int temp = 0;
         int temp2;
         try (var hummingMessage = new ByteArrayOutputStream()) {
-            for (int i = 1; i <= encodedMessage.length - 1; i++) {
+            for (int i = 1; i < encodedMessage.length; i++) {
                 temp2 = (int) Math.pow(2, temp);
                 if (i % temp2 != 0) {
                     hummingMessage.write(encodedMessage[i]);

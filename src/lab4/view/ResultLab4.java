@@ -9,7 +9,6 @@ public record ResultLab4(String source, FileSize sizeOfFile,
                          byte[] code,
                          byte[] hammingCode,
                          byte[] hammingDeCode,
-                         boolean decodedIsCorrectByValidator,
                          boolean reallyIsCorrectDecoding,
                          List<Integer> foundErrors,
                          List<Integer> realErrors) {
@@ -23,7 +22,6 @@ public record ResultLab4(String source, FileSize sizeOfFile,
                 "\nCoded Message: " + arrayToString(hammingCode) +
                 "\nDecoded message: " + arrayToString(hammingDeCode) +
                 "\nCorrect : " + reallyIsCorrectDecoding +
-                "\nCorrect by Hamming: " + decodedIsCorrectByValidator +
                 "\nFound errors: " + foundErrors +
                 "\nReal errors: " + realErrors +
                 "\n}";

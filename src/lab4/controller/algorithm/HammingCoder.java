@@ -17,7 +17,7 @@ public class HammingCoder  {
         int temp, temp2, j;
         temp = j = 0;
 
-        byte[] hammingMessageDataArray = new byte[hammingMessageLength + 1]; //+1 because starts with 1
+        byte[] hammingMessageDataArray = new byte[hammingMessageLength + 1];
         for (int i = 1; i <= hammingMessageLength; i++) {
             temp2 = (int) Math.pow(2, temp);
             if (i % temp2 != 0) {

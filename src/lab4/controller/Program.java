@@ -30,7 +30,7 @@ public class Program {
     public Program(final File inputFile, final AlgorithmCoder algorithmCoder) {
         this.inputFile = inputFile;
         this.inputData = FileGetter.getFileAsByteArray(inputFile);
-        var coder = new Coder(inputData, algorithmCoder);
+        var coder = new Coder(inputData, algorithmCoder);//Кодер Хаффмена або Шанно-Фано
         this.root = coder.getRoot();
         var hummingCoder = new HammingCoder();
         this.algorithmCoding = coder.getCodedText();//Код Хаффмена або Шанно-Фано
